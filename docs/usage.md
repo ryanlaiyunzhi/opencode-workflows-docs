@@ -73,6 +73,22 @@ runId 精确不经模型改写。
 
 让你为每个 workflow 喂入外部模板 / 规约 / 审查清单并指定产出落盘路径，配置驱动而无需改脚本。
 
+#### 6.0 内置 default workflow 的开箱默认
+
+全新安装、尚未经 `/workflows-studio` 落盘任何 `<name>.config.json` 时，四个内置 workflow 自带以下默认：
+
+| Workflow | 落盘路径 | 审查轮次 | 资源（template/rules/review） |
+|----------|---------|---------|------------------------------|
+| `default-prd` | `docs/prd.md` | 3 | `none`（占位，待填本地路径） |
+| `default-design` | `docs/design.md` | 3 | `none` |
+| `default-code` | 不落盘（代码由子 Agent 自行写文件） | 3 | `none` |
+| `default-test` | `docs/test.md` | 3 | `none` |
+
+- 资源占位 `none` 即「未配置」：审查门控对未配置资源的维度无对照基准 → 直接判过、不挑问题。
+- 经 `/workflows-studio` 的「改配置」填入本地路径并落盘后，`~/.opencode-workflows/<name>.config.json`
+  （优先级最高）即覆盖上述默认。
+- 这些默认仅对 `default-*` 生效；自定义 workflow 无内置默认，未配置时按空配置运行。
+
 **位置与三层合并**（优先级 项目 ← 全局 ← 脚本默认）：
 
 | 层级 | 路径 | 优先级 |
@@ -235,8 +251,8 @@ the global directory `~/.opencode-workflows/` (custom scripts + global config).
 
 | Symptom | Fix |
 |---------|-----|
-| No `/workflows-*` in autocomplete | ensure both entries are in `opencode.json` |
-| No sidebar Workflow section | add both entries; matching `storageRoot` |
+| No `/workflows-*` in autocomplete | ensure the package name is in `opencode.json` (single entry; do NOT append `/tui`) |
+| No sidebar Workflow section | ensure the plugin loaded; check `opencode.json` and `storageRoot` |
 | Custom workflow not found | put it in `~/.opencode-workflows/` |
 | `ctx.config` empty | config block key must equal the full workflow name |
 | Sub-agents time out / fail | configure a working provider/model in OpenCode |
