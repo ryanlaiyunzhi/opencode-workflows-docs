@@ -1,6 +1,6 @@
 # 安装部署指导 / Installation Guide
 
-> [简体中文](#简体中文) · [English](#english)
+> 适用版本：**v0.1.3** · [简体中文](#简体中文) · [English](#english)
 >
 > 📦 npm: https://www.npmjs.com/package/@ryanlaiyunzhi/opencode-workflows
 
@@ -27,28 +27,29 @@ npm install -g @ryanlaiyunzhi/opencode-workflows
 
 ### 3. 配置插件
 
-本包含**两个插件入口**（同一个 npm 包），必须在 OpenCode 配置文件 `opencode.json`
-（或 `.opencode/opencode.jsonc`）的 `plugin` 数组里**同时声明两条**：
+本包含**两个插件入口**（Server + TUI，同一个 npm 包）。以 **npm 包**形式安装时，只需在
+OpenCode 配置文件 `opencode.json`（或 `.opencode/opencode.jsonc`）的 `plugin` 数组里
+**写一次包名**——OpenCode 会自动探测包的 `exports["./tui"]` 与 `main`，把 Server 与 TUI
+两个入口都加载起来：
 
 ```jsonc
 {
   "$schema": "https://opencode.ai/config.json",
   "plugin": [
-    // Server 入口：引擎装配 + before-tool 兜底 Hook
-    "@ryanlaiyunzhi/opencode-workflows",
-    // TUI 入口：7 条 /workflows-* 命令 + Sidebar 面板 + /workflows-monitor 全屏界面
-    "@ryanlaiyunzhi/opencode-workflows/tui"
+    // 写一次包名即可，Server + TUI 两个入口由 OpenCode 自动探测加载
+    "@ryanlaiyunzhi/opencode-workflows"
   ]
 }
 ```
 
-> 为什么要写两条：OpenCode 规定单个插件入口只能导出 `server()` 或 `tui()` 之一。本包通过两个
-> export 子路径（`.` 和 `./tui`）分别提供，**两条都声明**才能拿到完整能力。
+> ⚠️ **不要**写成 `"@ryanlaiyunzhi/opencode-workflows/tui"`。带 `/tui` 子路径的 spec 会被
+> npm 当成本地路径解析而安装失败（`ENOENT`），导致插件加载不出来、命令不出现。子路径 / 多条
+> 写法只适用于「本地文件路径」开发场景（如 `./opencode-workflows/tui.tsx`），**不适用于已发布
+> 的 npm 包**——npm 包由 OpenCode 自动探测 `exports` 的 `./server` / `./tui`，写一次包名即可。
 
 #### 带运行时参数（可选）
 
-用 `[spec, options]` 元组传参。**两入口的 `storageRoot` 必须一致**，否则 TUI 面板读不到
-Server 写的运行快照：
+用 `[spec, options]` 元组传参（写一次包名，参数同时作用于 Server 与 TUI 两个入口）：
 
 ```jsonc
 {
@@ -60,8 +61,7 @@ Server 写的运行快照：
       "workflowTimeout": 604800000,
       "schemaRetries": 2,
       "storageRoot": ".opencode/workflows"
-    }],
-    ["@ryanlaiyunzhi/opencode-workflows/tui", { "storageRoot": ".opencode/workflows" }]
+    }]
   ]
 }
 ```
@@ -130,30 +130,32 @@ npm install -g @ryanlaiyunzhi/opencode-workflows
 
 ### 3. Configure
 
-The package ships **two plugin entries**. You must declare **both** in the `plugin` array of your
-`opencode.json` (or `.opencode/opencode.jsonc`):
+The package ships **two plugin entries** (Server + TUI). When installed as an **npm package**, you
+only need to declare the **package name once** — OpenCode auto-detects the package's
+`exports["./tui"]` and `main` and loads both the Server and TUI entries:
 
 ```jsonc
 {
   "$schema": "https://opencode.ai/config.json",
   "plugin": [
-    "@ryanlaiyunzhi/opencode-workflows",
-    "@ryanlaiyunzhi/opencode-workflows/tui"
+    "@ryanlaiyunzhi/opencode-workflows"
   ]
 }
 ```
 
-> Why two: an OpenCode plugin entry can export only one of `server()` / `tui()`. This package
-> exposes them via two subpath exports (`.` and `./tui`); declare both for full capability.
+> ⚠️ Do **not** write `"@ryanlaiyunzhi/opencode-workflows/tui"`. A spec with a `/tui` subpath is
+> resolved by npm as a local path and fails to install (`ENOENT`), so the plugin never loads and no
+> commands appear. The subpath / multi-entry form only applies to **local file paths** during
+> development; published npm packages are auto-detected from their `exports` (`./server` / `./tui`),
+> so a single package name is enough.
 
-Pass runtime options with the `[spec, options]` tuple form. The `storageRoot` of both entries
-**must match**:
+Pass runtime options with the `[spec, options]` tuple form (one entry; options apply to both the
+Server and TUI sides):
 
 ```jsonc
 {
   "plugin": [
-    ["@ryanlaiyunzhi/opencode-workflows", { "maxConcurrency": 4, "storageRoot": ".opencode/workflows" }],
-    ["@ryanlaiyunzhi/opencode-workflows/tui", { "storageRoot": ".opencode/workflows" }]
+    ["@ryanlaiyunzhi/opencode-workflows", { "maxConcurrency": 4, "storageRoot": ".opencode/workflows" }]
   ]
 }
 ```

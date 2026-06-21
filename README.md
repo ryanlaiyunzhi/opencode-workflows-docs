@@ -13,6 +13,9 @@ npm install -g @ryanlaiyunzhi/opencode-workflows
 
 📦 **npm**: https://www.npmjs.com/package/@ryanlaiyunzhi/opencode-workflows
 
+> **当前版本：v0.1.3** · 安装时不带版本号默认拉取 `@latest`；锁定版本用 `@0.1.3`。
+> 变更记录见 npm 包内 `CHANGELOG.md`。
+
 [简体中文](#简体中文) · [English](#english)
 
 ---
@@ -31,9 +34,10 @@ Claude Code Workflows）。你用 ESM 脚本（`.mjs`）描述「多个子 Agent
   子 Workflow 内联（`subflow`）。
 - **双插件入口**：Server（引擎装配 + Hook）与 TUI（7 条 `/workflows-*` 命令 + Sidebar 面板 +
   全屏监控）。
-- **四个内置 Workflow**：PRD / Design / Code / Test，开箱即用。
-- **企业配置桥接**：用 `workflows.config.json` 喂入模板 / 规约 / 审查清单并指定产出路径，配置驱动而无需改脚本。
-- **引导式创建**：全屏向导生成自定义 Workflow，落盘全局目录跨项目复用。
+- **四个内置 Workflow**：PRD / Design / Code / Test，开箱即用（自带默认配置）。
+- **企业配置桥接**：为每个 workflow 喂入模板 / 规约 / 审查清单并指定产出路径，配置驱动而无需改脚本。
+- **⭐ 引导式创建（自主编排）**：在 `/workflows-studio` 用对话描述你的流程，框架自动生成可运行的
+  多 Agent 编排脚本并落盘全局目录、跨项目复用——**不写一行代码即可自定义 workflow**。
 
 ### 与 Claude Code Workflows 的对应
 
@@ -47,8 +51,11 @@ Claude Code Workflows）。你用 ESM 脚本（`.mjs`）描述「多个子 Agent
 ### 快速开始
 
 1. **安装**：`npm install -g @ryanlaiyunzhi/opencode-workflows`
-2. **配置**：在 `opencode.json` 的 `plugin` 数组加两条（见 [安装部署指导](./docs/installation.md)）。
-3. **使用**：启动 OpenCode，敲 `/workflows-run` 选 Workflow 并输入需求（见 [使用指导](./docs/usage.md)）。
+2. **配置**：在 `opencode.json` 与 `tui.json` 的 `plugin` 数组各写一次包名
+   （见 [安装部署指导](./docs/installation.md)）。
+3. **运行内置**：启动 OpenCode，敲 `/workflows-run` 选 Workflow 并输入需求。
+4. **⭐ 自建流程**：敲 `/workflows-studio` →「新建 workflow」，对话描述你的流程即可生成
+   （见 [使用指导 · 创建自定义 Workflow](./docs/usage.md)）。
 
 ### 文档
 
