@@ -20,10 +20,10 @@
 | 1 | `/workflows-create` | `/wf-create` | ⭐ **对话式创建自定义 workflow**：输入一句话需求 → 模型引导你多轮对话生成并落盘 |
 | 2 | `/workflows-run` | `/wf-run` | 选 workflow → 输入需求 → 启动后台运行 |
 | 3 | `/workflows-studio` | `/wf-studio` | Workflow **类型**增删改查：浏览 / 表单式新建 / 改配置 / 改结构 / 删除 |
-| 4 | `/workflows-resume` | `/wf-resume` | 选非 running 的 run → 断点续跑 |
-| 5 | `/workflows-cancel` | `/wf-cancel` | 选 running/paused 的 run → 确认 → 取消 |
-| 6 | `/workflows-pause` | `/wf-pause` | 选 running 的 run → 暂停 |
-| 7 | `/workflows-delete` | `/wf-delete` | 选非 running 的 run → 确认 → 删除运行产物 |
+| 4 | `/workflows-resume` | `/wf-resume` | 选非 running 的 workflow → 断点续跑 |
+| 5 | `/workflows-cancel` | `/wf-cancel` | 选 running/paused 的 workflow → 确认 → 取消 |
+| 6 | `/workflows-pause` | `/wf-pause` | 选 running 的 workflow → 暂停 |
+| 7 | `/workflows-delete` | `/wf-delete` | 选非 running 的 workflow → 确认 → 删除运行产物 |
 | 8 | `/workflows-monitor` | `/wf-monitor` | 打开三层下钻全屏监控界面 |
 
 > **两条创建路径,按习惯选**：`/workflows-create` 是**对话式**（AI 问你答，自然语言描述流程，
@@ -117,10 +117,10 @@ Sidebar 也出现该 run 的实时进度。
 
 ### 5. 断点续跑与运行态控制
 
-- **resume**：选非 running 的 run 续跑。已完成且 prompt 一致的 agent 调用复用缓存，从首个失配点起重跑。
-- **pause**：选 running 的 run 暂停（非终态，可后续 resume）。
-- **cancel**：选 running/paused 的 run，二次确认后取消，运行中子 Agent 级联终止。
-- **delete**：选非 running 的 run，二次确认后删除全部产物。running 的 run 禁止删除。
+- **resume**：选非 running 的 workflow 续跑。已完成且 prompt 一致的 agent 调用复用缓存，从首个失配点起重跑。
+- **pause**：选 running 的 workflow 暂停（非终态，可后续 resume）。
+- **cancel**：选 running/paused 的 workflow，二次确认后取消，运行中子 Agent 级联终止。
+- **delete**：选非 running 的 workflow，二次确认后删除全部产物。running 的 workflow 禁止删除。
 
 ### 6. 全屏监控：`/workflows-monitor`
 
