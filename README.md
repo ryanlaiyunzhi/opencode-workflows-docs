@@ -30,7 +30,7 @@ Claude Code Workflows）。你用 ESM 脚本（`.mjs`）描述「多个子 Agent
 
 ### 核心能力
 
-- **多 Agent 编排**：并行扇出（`parallel`）、流水线（`pipeline`）、审查门控 Ralph Loop（`gate`）、
+- **多 Agent 编排**：并行扇出（`branch`）、流水线（`pipeline`）、审查门控 Ralph Loop（`gate`）、
   子 Workflow 内联（`subflow`）。
 - **双插件入口**：Server（引擎装配 + Hook）与 TUI（8 条 `/workflows-*` 命令 + Sidebar 面板 +
   全屏监控）。
@@ -52,7 +52,7 @@ Claude Code Workflows）。你用 ESM 脚本（`.mjs`）描述「多个子 Agent
 ### 快速开始
 
 1. **安装**：`npm install -g @ryanlaiyunzhi/opencode-workflows`
-2. **配置**：在 `opencode.json` 与 `tui.json` 的 `plugin` 数组各写一次包名
+2. **配置**：在 `opencode.json` 与 `tui.json` 的 `plugin` 数组各写一次包名，tui.json需新建到同目录下
    （见 [安装部署指导](./docs/installation.md)）。
 3. **运行内置**：启动 OpenCode，敲 `/workflows-run` 选 Workflow 并输入需求。
 4. **⭐ 自建流程**：敲 `/workflows-create`，一句话描述你的流程，模型引导你对话式生成
