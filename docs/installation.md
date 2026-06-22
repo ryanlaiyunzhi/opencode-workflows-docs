@@ -29,7 +29,7 @@ npm install -g @ryanlaiyunzhi/opencode-workflows
 
 本包含**两个插件入口**（Server + TUI，同一个 npm 包），分别由 OpenCode 的两套加载上下文读取：
 **Server 入口读 `opencode.json`，TUI 入口读 `tui.json`**。因此需在**两个文件**的 `plugin`
-数组里**各写一次包名**：
+数组里**各写一次包名** （tui.json需新建到同目录下）：
 
 ```jsonc
 // opencode.json（或 .opencode/opencode.jsonc）—— 加载 Server 入口（引擎装配 + Hook）
@@ -77,7 +77,7 @@ npm install -g @ryanlaiyunzhi/opencode-workflows
 |------|--------|------|
 | `maxConcurrency` | `min(16, CPU核数-2)`，最小 1 | 最大并发子 Agent 数 |
 | `maxAgents` | `1000` | 单 Workflow 内 `agent()` 调用总数上限（安全阀） |
-| `agentTimeout` | `300000`（300s） | 单个子 Agent 超时；`null`/`<=0` 关闭 |
+| `agentTimeout` | `300000`（300s） | 单个子 Agent 超时；`null`/`<=0` 关闭；默认为 null，不限制agent执行时间 |
 | `workflowTimeout` | `604800000`（7 天） | 整个 Workflow 超时；`null`/`<=0` 关闭 |
 | `schemaRetries` | `2` | 结构化输出 Schema 校验失败重试次数 |
 | `storageRoot` | `.opencode/workflows` | 运行产物根目录（两入口须一致） |
