@@ -71,13 +71,13 @@ Workflow 区域说明进度面板就绪。
 
 **推荐方式：锁定版本号，升级时改数字**
 
-把两个文件里的版本号改为新版本（如 `@0.1.6`），重启 OpenCode 即自动安装并加载新版：
+把两个文件里的版本号改为新版本（如 `@0.1.5`），重启 OpenCode 即自动安装并加载新版：
 
 ```jsonc
 // opencode.json
-{ "$schema": "https://opencode.ai/config.json", "plugin": ["@ryanlaiyunzhi/opencode-workflows@0.1.6"] }
+{ "$schema": "https://opencode.ai/config.json", "plugin": ["@ryanlaiyunzhi/opencode-workflows@0.1.5"] }
 // tui.json
-{ "$schema": "https://opencode.ai/tui.json", "plugin": ["@ryanlaiyunzhi/opencode-workflows@0.1.6"] }
+{ "$schema": "https://opencode.ai/tui.json", "plugin": ["@ryanlaiyunzhi/opencode-workflows@0.1.5"] }
 ```
 
 > ⚠️ **不要用 bare 包名（不带版本号）**。OpenCode 会把无版本 spec 缓存为 `@latest`，首次安装后**永久使用缓存**，即使 npm 上已发布新版，重启后仍加载旧版。
@@ -147,13 +147,13 @@ the right sidebar confirms the progress panel is ready.
 
 **Recommended: pin an explicit version and bump the number to upgrade**
 
-Change the version number (e.g. `@0.1.6`) in both files and restart OpenCode — it automatically installs and loads the new version:
+Change the version number (e.g. `@0.1.5`) in both files and restart OpenCode — it automatically installs and loads the new version:
 
 ```jsonc
 // opencode.json
-{ "$schema": "https://opencode.ai/config.json", "plugin": ["@ryanlaiyunzhi/opencode-workflows@0.1.6"] }
+{ "$schema": "https://opencode.ai/config.json", "plugin": ["@ryanlaiyunzhi/opencode-workflows@0.1.5"] }
 // tui.json
-{ "$schema": "https://opencode.ai/tui.json", "plugin": ["@ryanlaiyunzhi/opencode-workflows@0.1.6"] }
+{ "$schema": "https://opencode.ai/tui.json", "plugin": ["@ryanlaiyunzhi/opencode-workflows@0.1.5"] }
 ```
 
 > ⚠️ **Do not use a bare package name (no version)**. OpenCode permanently caches the `@latest` resolution — even after a new npm release, restarts will still load the old cached version.
