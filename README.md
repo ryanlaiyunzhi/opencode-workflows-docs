@@ -13,7 +13,7 @@ npm install -g @ryanlaiyunzhi/opencode-workflows
 
 📦 **npm**: https://www.npmjs.com/package/@ryanlaiyunzhi/opencode-workflows
 
-> **当前版本：v0.1.3** · 安装时不带版本号默认拉取 `@latest`；锁定版本用 `@0.1.3`。
+> **当前版本：v0.1.5** · 升级方式：把配置里的版本号改为新版本（如 `@0.1.5`→`@0.1.6`）后重启 OpenCode；详见 [安装部署指导 · 升级章节](./docs/installation.md)。
 > 变更记录见 npm 包内 `CHANGELOG.md`。
 
 [简体中文](#简体中文) · [English](#english)
