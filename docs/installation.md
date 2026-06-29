@@ -47,7 +47,7 @@ npm install -g @ryanlaiyunzhi/opencode-workflows
     ["@ryanlaiyunzhi/opencode-workflows@0.1.5", {
       "maxConcurrency": 4,
       "maxAgents": 1000,
-      "agentTimeout": 300000,
+      "agentTimeout": 86400000,
       "workflowTimeout": 604800000,
       "schemaRetries": 2,
       "storageRoot": ".opencode/workflows"
@@ -59,10 +59,12 @@ npm install -g @ryanlaiyunzhi/opencode-workflows
 |------|--------|------|
 | `maxConcurrency` | `min(16, CPU核数-2)`，最小 1 | 最大并发子 Agent 数 |
 | `maxAgents` | `1000` | 单 Workflow 内 `agent()` 调用总数上限（安全阀） |
-| `agentTimeout` | `300000`（300s） | 单个子 Agent 超时；`null`/`<=0` 关闭 |
+| `agentTimeout` | `86400000`（24小时） | 单个子 Agent 超时；`null`/`<=0` 关闭 |
 | `workflowTimeout` | `604800000`（7 天） | 整个 Workflow 超时；`null`/`<=0` 关闭 |
 | `schemaRetries` | `2` | 结构化输出 Schema 校验失败重试次数 |
 | `storageRoot` | `.opencode/workflows` | 运行产物根目录（两入口须一致） |
+
+> ⚠️ **`agentTimeout` 请勿随意调小**。子 Agent 的运行时长取决于任务复杂度，可能从几分钟到数小时不等。若设置过小（如 5 分钟），Agent 会在任务完成前被强制中断，导致 workflow 失败。建议保持默认 24 小时或设为 `null`（关闭超时），仅在明确了解任务耗时上限时才调整。
 ### 4. 验证安装
 启动 OpenCode 后，在 TUI 输入框敲 `/`，补全列表应能看到 `workflows-run`、`workflows-studio`
 等命令；选中 `/workflows-studio` 能进入全屏 Studio，说明两入口都已生效；右侧 Sidebar 出现
@@ -135,10 +137,12 @@ Pass runtime options with the `[spec, options]` tuple form (in `opencode.json`, 
 ```jsonc
 {
   "plugin": [
-    ["@ryanlaiyunzhi/opencode-workflows@0.1.5", { "maxConcurrency": 4, "storageRoot": ".opencode/workflows" }]
+    ["@ryanlaiyunzhi/opencode-workflows@0.1.5", { "maxConcurrency": 4, "agentTimeout": 86400000, "storageRoot": ".opencode/workflows" }]
   ]
 }
 ```
+
+> ⚠️ **Do not set `agentTimeout` too low.** Sub-agent runtime depends on task complexity and can range from minutes to hours. Setting it too small (e.g. 5 minutes) will force-kill agents mid-task and fail the workflow. Keep the default 24 h or set `null` to disable, and only reduce it when you know the task's upper time bound.
 ### 4. Verify
 Start OpenCode, type `/` in the TUI input — `workflows-run`, `workflows-studio` etc. should appear
 in autocomplete. Opening `/workflows-studio` confirms both entries loaded; a Workflow section in
