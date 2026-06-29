@@ -16,6 +16,22 @@ npm install -g @ryanlaiyunzhi/opencode-workflows
 > **当前版本：v0.1.5** · 升级方式：把配置里的版本号改为新版本（如 `@0.1.5`→`@0.1.6`）后重启 OpenCode；详见 [安装部署指导 · 升级章节](./docs/installation.md)。
 > 变更记录见 npm 包内 `CHANGELOG.md`。
 
+### 🆕 v0.1.5 更新内容
+
+> ⚠️ **破坏性变更**：workflow 配置文件（`~/.opencode-workflows/<name>.config.json`）升级为纯 per-phase 格式，旧扁平格式将被拒绝并降级为空配置。**升级后请用 `/workflows-studio` → 「改配置」重新保存。**
+
+| 类别 | 内容 |
+|------|------|
+| 🚀 新特性 | **scaffold-quality-patterns**：对抗式验证（`adversarial`）、挖到挖干（`finder-loop`）、评审团（`judge-panel`）三种可复用质量模式 StepKind；扇出安全阀（超 4096 同步报错） |
+| 🐛 修复 P0 | 暂停近实时打断 + `pausing` 过渡态；resume 后进度去重（upsert）；`pausing` 状态守卫完善 |
+| 🐛 修复 P1/P2 | 进度口径重构（running 时显示计数式，消除跳变）；Monitor 各层状态行+控制键提示；配置资源按阶段分组树；输入框操作提示；Monitor L2 跳顶底/半屏翻页 |
+| ⚡ 性能 | `typescript` 懒加载，server 入口启动耗时 ~546 ms → ~15 ms |
+
+> **News / v0.1.5**
+> ⚠️ **Breaking**: config files at `~/.opencode-workflows/<name>.config.json` must use the new per-phase format. Old flat-format configs are rejected and fall back to empty. **Re-save via `/workflows-studio` → "Edit Config" after upgrading.**
+>
+> 🚀 New quality-pattern StepKinds: `adversarial`, `finder-loop`, `judge-panel`; fan-out safety cap. 🐛 Pause/resume overhaul (near-realtime abort + `pausing` state); progress dedup; monitor status bars; phase-grouped config tree; input hints; scroll shortcuts. ⚡ Startup time ~546 ms → ~15 ms (typescript lazy-load).
+
 [简体中文](#简体中文) · [English](#english)
 
 ---
